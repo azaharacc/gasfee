@@ -52,7 +52,7 @@ export default function Dashboard() {
 
   return (
     <div className="card">
-      <h2>Panel de control</h2>
+      <h2>Dashboard</h2>
       {gasData && (
         <>
           <p>Current Gas: {gasData.gasPrice}</p>
@@ -64,7 +64,7 @@ export default function Dashboard() {
         type="number"
         value={threshold}
         onChange={e => setThreshold(e.target.value)}
-        placeholder="Nuevo umbral en gwei"
+        placeholder="New threshold (gwei)"
       />
       <button onClick={updateThreshold}>Update Threshold</button>
       <p>{msg}</p>

@@ -1,12 +1,50 @@
-# React + Vite
+# ⛽ Gas Fee Detector
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small tool that monitors Ethereum gas fees in real time and notifies users when the fees drop below a their defined threshold.
 
-Currently, two official plugins are available:
+## 🧠 Purpose
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project demonstrates backend skills:
 
-## Expanding the ESLint configuration
+- RESTful API design with Node.js & Express
+- User authentication using JWT
+- MongoDB integration via Mongoose
+- Email verification with Nodemailer
+- Background jobs (gas fee monitoring)
+- CORS management and deployment on Railway + Vercel
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Live Demo
+![screenshot](screenshot.png)
+
+- **Frontend (Vercel)**: [https://gasfee-nu.vercel.app](https://gasfee-nu.vercel.app)
+- **Backend (Railway)**: [https://gasfee-production.up.railway.app](https://gasfee-production.up.railway.app)
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT authentication
+- Bcrypt for password hashing
+- Nodemailer (SMTP email verification)
+- dotenv for environment configuration
+
+### Frontend
+- React (Vite)
+- LocalStorage for token management
+- Fetch API with Bearer token authentication
+
+---
+
+## 🔐 Features
+
+- ✅ User registration with email verification
+- ✅ Login with JWT and password encryption
+- ✅ Private dashboard protected by token
+- ✅ Fetches live gas prices from [Etherscan API](https://docs.etherscan.io/)
+- ✅ Set a personal gas threshold (in Gwei)
+- ✅ Periodic job checks gas price and sends notification (in progress)
+

@@ -41,7 +41,7 @@ export default function Register() {
 
   return (
          <div className="card">
-      <h2>Registro</h2>
+      <h2>Sign Up</h2>
       <input
         type="email"
         placeholder="Email account"
@@ -54,7 +54,7 @@ export default function Register() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       /><br />
-      <button onClick={handleRegister}>Sign Up</button>
+      <button onClick={handleRegister}>Send</button>
       <p>{message}</p>
     </div>
   );
