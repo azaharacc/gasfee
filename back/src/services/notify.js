@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.mur.at", // o el servidor SMTP de tu proveedor
+  host: "mail.mailo.com", // o el servidor SMTP de tu proveedor
   port: 465, // o 587 dependiendo de si es SSL o TLS
   secure: true, // true para 465 (SSL), false para 587 (STARTTLS)
   auth: {

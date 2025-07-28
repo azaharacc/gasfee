@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 export default function Dashboard() {
   const [gasData, setGasData] = useState(null);
   const [threshold, setThreshold] = useState("");
@@ -9,29 +11,42 @@ export default function Dashboard() {
   useEffect(() => {
     if (!token) return;
 
-    fetch("http://localhost:3000/gas", {
+    fetch(`${API_URL}/gas`, {
       headers: { Authorization: token }
     })
       .then(res => res.json())
       .then(data => {
         setGasData(data);
         setThreshold(data.threshold.replace(" gwei", ""));
-      });
+      })
+      .catch(err => console.error("Error fetching gas data:", err));
   }, [token]);
 
   const updateThreshold = async () => {
-    const res = await fetch("http://localhost:3000/gas/threshold", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token
-      },
-      body: JSON.stringify({ gasThreshold: Number(threshold) })
-    });
+    try {
+      const res = await fetch(`${API_URL}/gas/threshold`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token
+        },
+        body: JSON.stringify({ gasThreshold: Number(threshold) })
+      });
 
-    const data = await res.json();
-    setMsg(data.message || data.error);
+      const data = await res.json();
+      setMsg(data.message || data.error);
+
+      // 🔁 Vuelve a obtener los datos actualizados del servidor
+      const updatedRes = await fetch(`${API_URL}/gas`, {
+        headers: { Authorization: token }
+      });
+      const updatedData = await updatedRes.json();
+      setGasData(updatedData);
+    } catch (error) {
+      console.error("Error updating threshold:", error);
+    }
   };
+
 
   if (!token) return <p>Please log in to see this page</p>;
 
@@ -40,9 +55,9 @@ export default function Dashboard() {
       <h2>Panel de control</h2>
       {gasData && (
         <>
-          <p>Gas actual: {gasData.gasPrice}</p>
-          <p>Umbral actual: {gasData.threshold}</p>
-          <p>¿Deploy recomendado?: {gasData.goodToDeploy ? "✅ Yes" : "❌ No"}</p>
+          <p>Current Gas: {gasData.gasPrice}</p>
+          <p>Current Threshold: {gasData.threshold}</p>
+          <p>¿Recommended deployment?: {gasData.goodToDeploy ? "✅ Yes" : "❌ No"}</p>
         </>
       )}
       <input

@@ -8,7 +8,7 @@ export default function Verify() {
   useEffect(() => {
     async function verifyEmail() {
       try {
-        const res = await fetch(`http://localhost:3000/auth/verify/${token}`);
+        const res = await fetch(`${API_URL}/auth/verify/${token}`);
         if (res.ok) {
           // La ruta en backend hace res.redirect, pero aquí esperamos json,
           // así que quizá debas modificar backend para que devuelva JSON en vez de redirect
