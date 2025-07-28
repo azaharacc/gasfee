@@ -7,9 +7,13 @@ import "./jobs/gasChecker.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
+import { startGasChecker, setDBReady } from "./jobs/gasChecker.js";
 
 dotenv.config();
-connectDB();
+connectDB().then(() => {
+  setDBReady();
+  startGasChecker();
+});
 
 const app = express();
 app.use(express.json());
