@@ -13,7 +13,10 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 
 // ✅ Definir __dirname en ES modules
 const __filename = fileURLToPath(import.meta.url);
