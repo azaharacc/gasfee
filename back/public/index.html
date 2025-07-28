@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gas Fee Detector - Auth</title>
+</head>
+<body>
+  <h1>Gas Fee Detector - Registro & Login</h1>
+
+  <h2>Registro</h2>
+  <input type="email" id="registerEmail" placeholder="Email"><br>
+  <input type="password" id="registerPassword" placeholder="Contraseña"><br>
+  <button onclick="register()">Registrar</button>
+  <p id="registerMsg"></p>
+
+  <h2>Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email"><br>
+  <input type="password" id="loginPassword" placeholder="Contraseña"><br>
+  <button onclick="login()">Login</button>
+  <p id="loginMsg"></p>
+
+  <h2>Consulta Gas</h2>
+  <button onclick="checkGas()">Ver gas actual</button>
+  <p id="gasInfo"></p>
+
+  <script>
+    let token = "";
+
+    async function register() {
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerPassword").value;
+
+      const res = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      document.getElementById("registerMsg").innerText = data.message || data.error;
+    }
+
+    async function login() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const res = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      document.getElementById("loginMsg").innerText = data.message || data.error;
+
+      if (data.token) {
+        token = data.token;
+        alert("Token guardado ✅");
+      }
+    }
+
+    async function checkGas() {
+      if (!token) {
+        alert("Primero haz login para obtener el token");
+        return;
+      }
+
+      const res = await fetch("http://localhost:3000/gas", {
+        method: "GET",
+        headers: { "Authorization": token }
+      });
+
+      const data = await res.json();
+      document.getElementById("gasInfo").innerText =
+        `Gas actual: ${data.gasPrice} | Umbral: ${data.threshold} | ¿Deploy recomendado?: ${data.goodToDeploy ? "✅ Sí" : "❌ No"}`;
+    }
+  </script>
+</body>
+</html>
