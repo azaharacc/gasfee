@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-
+ 
 export default function Verify() {
   const { token } = useParams();
   const [status, setStatus] = useState("Verifying...");
