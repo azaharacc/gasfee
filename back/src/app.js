@@ -18,6 +18,11 @@ app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true,
 }));
+
+app.get("/", (req, res) => {
+  res.send("Servidor activo ✅");
+});
+
  
 // ✅ Definir __dirname en ES modules
 const __filename = fileURLToPath(import.meta.url);
