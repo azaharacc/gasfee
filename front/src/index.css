@@ -37,7 +37,7 @@ body {
 }
 
 .div-contents {
-  background: white;
+  background: rgb(246, 246, 246);
   width:70%;
   max-width: 800px;
   min-height: 450px;
@@ -49,6 +49,12 @@ body {
   margin:0 auto;
   text-align: center;
   color:#343434;
+}
+
+.input-text{
+  margin: 1%;
+  padding: 1%;
+  border-radius: 10px;
 }
 
 .navbar-logo img {

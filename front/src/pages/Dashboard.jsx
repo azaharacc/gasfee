@@ -62,6 +62,7 @@ export default function Dashboard() {
       )}
       <input
         type="number"
+        class="input-text"
         value={threshold}
         onChange={e => setThreshold(e.target.value)}
         placeholder="New threshold (gwei)"

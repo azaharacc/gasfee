@@ -40,11 +40,13 @@ export default function Login({ onLogin }) {
       <h2>Login</h2>
       <input
         type="email"
+        class="input-text"
         placeholder="Email account"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       /><br />
       <input
+        class="input-text"
         type="password"
         placeholder="Password"
         value={password}
