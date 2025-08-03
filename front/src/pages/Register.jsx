@@ -44,12 +44,14 @@ export default function Register() {
       <h2>Sign Up</h2>
       <input
         type="email"
+        class="input-text"
         placeholder="Email account"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       /><br />
       <input
         type="password"
+        class="input-text"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
