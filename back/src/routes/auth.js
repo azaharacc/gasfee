@@ -9,7 +9,6 @@ import crypto from "crypto";
 dotenv.config();
 const router = express.Router();
 
-// Configurar transporte nodemailer
 const transporter = nodemailer.createTransport({
   host: "smtp.mur.at",
   port: 587,
@@ -22,24 +21,24 @@ const transporter = nodemailer.createTransport({
   debug: true,
 });
 
-// ✅ Registro de usuario con verificación
-router.post("/register", async (req, res) => {
+// Will keep this deactivated for now 
+/*router.post("/register", async (req, res) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password || password.length < 6) {
-      return res.status(400).json({ error: "Email válido y contraseña de al menos 6 caracteres requeridos" });
+      return res.status(400).json({ error: "Valid email address and password of at least 6 characters required" });
     }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ error: "El usuario ya está registrado" });
+      return res.status(400).json({ error: "The user is already registered." });
     }
 
-    // Crear token de verificación
+    // Create verification token
     const verificationToken = crypto.randomBytes(32).toString("hex");
 
-    // Crear usuario
+    // Create user
     const newUser = new User({
       email,
       password,
@@ -49,30 +48,30 @@ router.post("/register", async (req, res) => {
 
     await newUser.save();
 
-    // Enviar email
+    // Send email alert
     const verificationLink = `${process.env.CLIENT_URL}/verify/${verificationToken}`;
     await transporter.sendMail({
       from: `"Gas Fee Detector" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: "Verifica tu cuenta",
-      html: `<h3>Confirma tu email</h3><p><a href="${verificationLink}">Haz clic aquí para verificar</a></p>`,
+      subject: "Please verify your account",
+      html: `<h3>Confirm your account. </h3><p><a href="${verificationLink}">Click here to verify</a></p>`,
     });
 
-    res.json({ message: "📧 Registro exitoso. Revisa tu email para verificar la cuenta." });
+    res.json({ message: "Registration successful. Check your email to verify your account." });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error en el servidor" });
   }
 });
-
-// ✅ Verificación del email
+*/
+// Email verification to sign up
 router.get("/verify/:token", async (req, res) => {
   try {
     const { token } = req.params;
     const user = await User.findOne({ verificationToken: token });
 
     if (!user) {
-      // Buscar si ya está verificado (token ya eliminado)
+      // Search if user is already verified
       const verifiedUser = await User.findOne({ isVerified: true, verificationToken: { $exists: false } });
       if (verifiedUser) {
         return res.json({ message: "✅ Verificación ya completada" });
@@ -100,24 +99,24 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Email y contraseña son obligatorios" });
     }
 
-    // Buscar usuario
+    // search user
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ error: "Usuario o contraseña incorrectos" });
     }
 
-    // 🚫 Validar que haya verificado su email
+    // validate email verification
     if (!user.isVerified) {
       return res.status(403).json({ error: "⚠️ Verifica tu email antes de iniciar sesión" });
     }
 
-    // Verificar contraseña
+    // verify password
     const validPass = await bcrypt.compare(password, user.password);
     if (!validPass) {
       return res.status(400).json({ error: "Usuario o contraseña incorrectos" });
     }
 
-    // Crear token
+    // create token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     res.json({

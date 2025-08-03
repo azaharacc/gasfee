@@ -28,13 +28,13 @@ app.get("/", (req, res) => {
 });
 
  
-// ✅ Definir __dirname en ES modules
+// define __dirname to serve public folder
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Sirve archivos estáticos ANTES de las rutas API
+// static files before api routes
 app.use(express.static(path.join(__dirname, "../public")));
-
+// api routes
 app.use("/auth", authRoutes);
 app.use("/gas", gasRoutes);
 

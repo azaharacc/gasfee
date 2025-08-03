@@ -5,7 +5,7 @@ import User from "../models/user.js";
 
 const router = express.Router();
 
-// Gas actual
+// current gas (private route jwt)
 router.get("/", auth, async (req, res) => {
   const gasPrice = await getGasPrice();
   const user = await User.findById(req.user.id);
@@ -16,7 +16,7 @@ router.get("/", auth, async (req, res) => {
   });
 });
 
-// Cambiar umbral
+// Change threshold
 router.post("/threshold", auth, async (req, res) => {
   const { gasThreshold } = req.body;
   const user = await User.findByIdAndUpdate(req.user.id, { gasThreshold }, { new: true });

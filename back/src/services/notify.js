@@ -3,10 +3,11 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 dotenv.config();
 
+// config email from where send alert
 const transporter = nodemailer.createTransport({
-  host: "mail.mailo.com", // o el servidor SMTP de tu proveedor
-  port: 465, // o 587 dependiendo de si es SSL o TLS
-  secure: true, // true para 465 (SSL), false para 587 (STARTTLS)
+  host: "mail.mailo.com",
+  port: 465,
+  secure: true, 
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
