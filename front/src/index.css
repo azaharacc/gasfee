@@ -30,14 +30,14 @@ body {
   margin: 0;
   height: 100vh;
   display: flex;
-  justify-content: center; /* centra horizontal */
-  align-items: center;     /* centra vertical */
+  justify-content: center; 
+  align-items: center;
   background: #BF80AE3D;
   font-family: Arial, sans-serif;
 }
 
 .div-contents {
-  background: rgb(246, 246, 246);
+  background: rgb(248, 248, 248);
   width:70%;
   max-width: 800px;
   min-height: 420px;
