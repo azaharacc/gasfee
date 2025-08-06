@@ -20,7 +20,7 @@ router.get("/", auth, async (req, res) => {
 router.post("/threshold", auth, async (req, res) => {
   const { gasThreshold } = req.body;
   const user = await User.findByIdAndUpdate(req.user.id, { gasThreshold }, { new: true });
-  res.json({ message: "✅ Umbral actualizado", gasThreshold: user.gasThreshold });
+  res.json({ message: "✅ Threshold updated", gasThreshold: user.gasThreshold });
 });
 
 export default router;

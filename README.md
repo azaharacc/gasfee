@@ -13,11 +13,8 @@ This project demonstrates backend skills:
 - Background jobs (gas fee monitoring)
 - CORS management and deployment on Railway + Vercel
 
-## 🚀 Live Demo
+## 🚀 [Live Demo](https://gasfee-nu.vercel.app)
 ![screenshot](screenshot.png)
-
-- **Frontend (Vercel)**: [https://gasfee-nu.vercel.app](https://gasfee-nu.vercel.app)
-- **Backend (Railway)**: [https://gasfee-production.up.railway.app](https://gasfee-production.up.railway.app)
 
 ---
 

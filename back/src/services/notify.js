@@ -19,11 +19,11 @@ export async function sendEmailAlert(to, gas) {
     await transporter.sendMail({
       from: `"Gas Fee Alert" <${process.env.EMAIL_USER}>`,
       to,
-      subject: "⚡ Gas fee bajo, es buen momento para hacer deploy",
-      text: `El gas actual es de ${gas} gwei. ¡Aprovecha para hacer deploy!`
+      subject: "⚡ Low gas fee, it is a good moment to deploy",
+      text: `Current gas fee is ${gas} gwei. ¡You can deploy now!`
     });
-    console.log(`📧 Email enviado a ${to}`);
+    console.log(`📧 Email sent to ${to}`);
   } catch (err) {
-    console.error("❌ Error enviando email:", err);
+    console.error("❌ Error sending email:", err);
   }
 }
